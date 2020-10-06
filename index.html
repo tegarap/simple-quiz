@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUIS BARU</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="pageStart">
+            <div class="row">
+                <div class="col-label">
+                    <label for="nama">Nama</label>
+                </div>
+                <div class="col-input">
+                    <input type="text" id="nama" name="nama">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-label">
+                    <label for="kelas">Kelas</label>
+                </div>
+                <div class="col-input">
+                    <input type="text" id="kelas" name="kelas">
+                </div>
+            </div>
+            <div class="center">
+                <button onclick="mulaiQuiz()" class="btn-start">Mulai Kuis</button>
+            </div>
+        </div>
+
+        <div id="pageQuiz" style="display: none;">
+            <div id="question"></div>
+            <label class="option"><input type="radio" name="option" value="1" /><span id="option1"></span></label>
+		    <label class="option"><input type="radio" name="option" value="2" /><span id="option2"></span></label>
+		    <label class="option"><input type="radio" name="option" value="3" /><span id="option3"></span></label>
+		    <label class="option"><input type="radio" name="option" value="4" /><span id="option4"></span></label>
+            <button id="next" onclick="nextques();" class="btn-next">Next Question</button>
+            <h4><br/><span id='timer' style="font-size:25px;"></span></h4>
+        </div>
+
+        <div id="pageHasil" style="display: none;">
+            <label id="identitas"></label>
+            <label id="hasil"></label>
+            <div class="center">
+                <button id="remidi" onclick="remidi();" class="btn-akhir">Remidi</button>
+                <button id="kirim" onclick="kirim();" class="btn-akhir">Kirim</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="questions.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
