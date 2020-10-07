@@ -8,27 +8,32 @@ var opt1 = document.getElementById("option1");
 var opt2 = document.getElementById("option2");
 var opt3 = document.getElementById("option3");
 var opt4 = document.getElementById("option4");
-
 // tombol
 const nextButton = document.getElementById("next");
 const remidiButton = document.getElementById("remidi");
 const kirimButton = document.getElementById("kirim");
-
 // variabel
 var nama = document.getElementById("nama");
 var kelas = document.getElementById("kelas");
 var identitas = document.getElementById("identitas");
-var hasil = document.getElementById("hasil");
 var timer = document.getElementById("timer")
+var jumlahSalah = document.getElementById("jumlahSalah");
+var nilaiAkhir = document.getElementById("nilaiAkhir");
+
 
 var tques = questions.length;
 var score = 0;
 var quesindex = 0;
+var nilai = 0;
 
-var c = 15 * 60; 
+var quizOver = false;
+
+// timer
+const wektu = 190;
+var c = wektu; 
 var t;
 
-// variabel nilai remidi
+// min nilai remidi
 var nilaiMin = 75;
 
 // membuat pertanyaan
@@ -47,60 +52,62 @@ function mulaiQuiz(){
 		alert("Mohon untuk melengkapi form");
 		return;
 	} else {
-		pageStart.style.display = "none";
-    	pageQuiz.style.display = "block";
+		showPageQuiz();
 		give_ques(0);
 		timedCount();
 	}
 }
 
-function nextques(){
-	var selected_ans= document.querySelector('input[type=radio]:checked');
+function nextQues(){
+	var checkkkk = 'input[type=radio]:checked';
+	var selected_ans = document.querySelector(checkkkk);
 	if(!selected_ans){
 		alert("Mohon pilih salah satu jawaban");return;
 	}
-	if(selected_ans.value==questions[quesindex][5]){
-		score=score+1;
+	if(selected_ans.value == questions[quesindex][5]){
+		score = score + 1;
 	}
-	selected_ans.checked=false;
+	selected_ans.checked = false;
 	quesindex++;
-	if(quesindex==tques-1){
+	if(quesindex == tques - 1){
 		nextButton.textContent = "Lihat Hasil";
 	}
-		
-	var nilai = (score/tques * 100).toFixed(0);
-	if(quesindex==tques){
-		pageQuiz.style.display = "none";
-		pageHasil.style.display = "block";
-		identitas.textContent = "Nama : " + nama.value + ", Kelas : " + kelas.value;
-		hasil.textContent = "Anda Menjawab Benar : "+score+" Nilai Anda = "+nilai;
-		if(nilai < nilaiMin){
-			remidiButton.style.display = "block";
-			kirimButton.style.display = "none";
-		} else {
-			remidiButton.style.display = "none";
-			kirimButton.style.display = "block";
+	nilai = (score/tques * 100).toFixed(0);
+	if(quesindex == tques){
+		var r = confirm("Apakah yakin dengan semua jawaban Anda?");
+		if (r == true) {
+			showPageHasil();
 		}
-        return;
 	}
-    give_ques(quesindex);
+	else{
+		give_ques(quesindex);
+	}
+}
+	
+
+function backQues(){
+	if(quesindex != 0){
+		quesindex--;
+		give_ques(quesindex);
+	}
 }
 
 function timedCount() {
-	if(c == 185) { 
-		return false; 
-	}
+	// if(c == 185) { 
+		
+	// 	return false; 
+	// }
 
 	var hours = parseInt( c / 3600 ) % 24;
 	var minutes = parseInt( c / 60 ) % 60;
 	var seconds = c % 60;
-	var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
-	// $('#timer').html(result);
+	var result = (hours < 10 ? " 0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
 	timer.textContent = result;
 
 	if(c == 0 ) {
-		c=185;
-		quizOver = true;
+		// c = 185;
+		alert("Waktu habis");
+		showPageHasil();
 		return false;
 	}
 	c = c - 1;
@@ -112,7 +119,8 @@ function timedCount() {
 function remidi() {
 	score = 0;
 	quesindex = 0;
-	c = 15 * 60; 
+	nilai = 0;
+	c = wektu; 
 	t;
 	pageHasil.style.display = "none";
 	mulaiQuiz();
@@ -120,4 +128,38 @@ function remidi() {
 
 function kirim() {
 	alert("Sedang mengirim . . .");return;
+}
+
+function showPageStart(){
+	pageStart.style.display = "block";
+	pageQuiz.style.display = "none";
+	pageHasil.style.display = "none";
+}
+
+function showPageQuiz(){
+	pageStart.style.display = "none";
+	pageQuiz.style.display = "block";
+	pageHasil.style.display = "none";
+}
+
+function showPageHasil(){
+	pageStart.style.display = "none";
+	pageQuiz.style.display = "none";
+	pageHasil.style.display = "block";
+
+	identitas.textContent = "Nama : " + nama.value + ", Kelas : " + kelas.value;
+	// hasil.textContent = "Anda Menjawab Benar : " + score + ", Salah : " + (questions.length - score) + ", Nilai Anda = " + nilai;
+	
+	jumlahSalah.textContent = "Salah : "+ (questions.length - score);
+	nilaiAkhir.textContent = "Nilai : "+ nilai;
+	
+
+	if(nilai < nilaiMin){
+		remidiButton.style.display = "block";
+		kirimButton.style.display = "none";
+	} else {
+		remidiButton.style.display = "none";
+		kirimButton.style.display = "block";
+	}
+    return;
 }
