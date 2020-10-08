@@ -9,7 +9,9 @@ var opt2 = document.getElementById("option2");
 var opt3 = document.getElementById("option3");
 var opt4 = document.getElementById("option4");
 // tombol
+const prevButton = document.getElementById("prev")
 const nextButton = document.getElementById("next");
+const hasilButton = document.getElementById("hasil");
 const remidiButton = document.getElementById("remidi");
 const kirimButton = document.getElementById("kirim");
 // variabel
@@ -19,14 +21,12 @@ var identitas = document.getElementById("identitas");
 var timer = document.getElementById("timer")
 var jumlahSalah = document.getElementById("jumlahSalah");
 var nilaiAkhir = document.getElementById("nilaiAkhir");
-
+var quizComplete = false;
 
 var tques = questions.length;
 var score = 0;
 var quesindex = 0;
 var nilai = 0;
-
-var quizOver = false;
 
 // timer
 const wektu = 190;
@@ -70,22 +70,18 @@ function nextQues(){
 	selected_ans.checked = false;
 	quesindex++;
 	if(quesindex == tques - 1){
-		nextButton.textContent = "Lihat Hasil";
+		nextButton.style.display = "none";
+		hasilButton.style.display = "block";
+		quizComplete = true;
 	}
 	nilai = (score/tques * 100).toFixed(0);
-	if(quesindex == tques){
-		var r = confirm("Apakah yakin dengan semua jawaban Anda?");
-		if (r == true) {
-			showPageHasil();
-		}
-	}
-	else{
+	if(quesindex != tques){
 		give_ques(quesindex);
 	}
 }
 	
 
-function backQues(){
+function prevQues(){
 	if(quesindex != 0){
 		quesindex--;
 		give_ques(quesindex);
@@ -93,11 +89,6 @@ function backQues(){
 }
 
 function timedCount() {
-	// if(c == 185) { 
-		
-	// 	return false; 
-	// }
-
 	var hours = parseInt( c / 3600 ) % 24;
 	var minutes = parseInt( c / 60 ) % 60;
 	var seconds = c % 60;
@@ -122,6 +113,8 @@ function remidi() {
 	nilai = 0;
 	c = wektu; 
 	t;
+	hasilButton.style.display = "none";
+	nextButton.style.display = "block";
 	pageHasil.style.display = "none";
 	mulaiQuiz();
 }
@@ -143,17 +136,27 @@ function showPageQuiz(){
 }
 
 function showPageHasil(){
+	if(quizComplete){
+		var r = confirm("Apakah yakin dengan semua jawaban Anda?");
+		if (r == true) {
+			showContentHasil();
+		} else {
+			return;
+		}
+	} else {
+		showContentHasil();
+	}
+	
+}
+
+function showContentHasil(){
 	pageStart.style.display = "none";
 	pageQuiz.style.display = "none";
 	pageHasil.style.display = "block";
-
 	identitas.textContent = "Nama : " + nama.value + ", Kelas : " + kelas.value;
 	// hasil.textContent = "Anda Menjawab Benar : " + score + ", Salah : " + (questions.length - score) + ", Nilai Anda = " + nilai;
-	
 	jumlahSalah.textContent = "Salah : "+ (questions.length - score);
 	nilaiAkhir.textContent = "Nilai : "+ nilai;
-	
-
 	if(nilai < nilaiMin){
 		remidiButton.style.display = "block";
 		kirimButton.style.display = "none";

@@ -1,13 +1,13 @@
 body{
-    background-color: #25252F;
+    /* background-color: #25252F; */
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
 #container{
-    /* background-color: #2D2C3D; */
-    background-color: #25252F;
+    /* background-color: #25252F; */
+    background-color: white;
     margin : 20px auto;
     height: 600px;
     width : 700px;
@@ -83,8 +83,8 @@ input[type=text], select, textarea{
     padding: 10px;
     margin-top: 10px;
     font-size: 1.3em;
-    background: #25252F;
-    color: #1D7AF5;
+    /* background: #25252F; */
+    /* color: #1D7AF5; */
     border: 2px solid #1D7AF5;
     border-radius: 4px;
     box-sizing: border-box;
@@ -140,7 +140,7 @@ input[type=text], select, textarea{
     
     height: 85%;
 }
-#back{
+#prev{
     float: left;
     margin-left: 25px;
 }
@@ -150,6 +150,10 @@ input[type=text], select, textarea{
     color: tomato;
 }
 #next{
+    float: right;
+    margin-right: 25px;
+}
+#hasil{
     float: right;
     margin-right: 25px;
 }
@@ -210,29 +214,22 @@ input[type=text], select, textarea{
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
-/* 
-#sideLeft{
-    margin: auto;
-    width: 50%;
-    border-color: tomato;
-    border-radius: 2px;
+.row {
+    display: flex;
 }
-#sideRight{
-    width: 50%;
-} */
-
-table, th, td {
-    border: 1px solid white;
-  }
-
+  
+  /* Create two equal columns that sits next to each other */
+.column {
+    flex: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+}
 #identitas{
     font-size: 28px;
 }
-
 #jumlahSalah{
     font-size: 40px;
 }
-
 #nilaiAkhir{
     font-size: 40px;
 }

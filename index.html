@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <button onclick="mulaiQuiz()" class="btn">Mulai Kuis</button>
-                <button onclick="showPageHasil()" class="btn">Hasilll</button>
+                <!-- <button onclick="showPageHasil()" class="btn">Hasilll</button> -->
             </div> 
         </div>
 
@@ -41,9 +41,10 @@
                 <label class="option"><input type="radio" name="option" value="4" /><span id="option4"></span></label>
             </div>
             <div id="quisBot">
-                <button id="back" onclick="backQues();" class="btn2">Kembali</button>
+                <button id="prev" onclick="prevQues();" class="btn2">Kembali</button>
                 <label id="timer" style="font-size:25px;"></label>
                 <button id="next" onclick="nextQues();" class="btn2">Berikutnya</button>
+                <button id="hasil" onclick="showPageHasil();" class="btn2" style="display: none;">Lihat Hasil</button>
             </div>
 
 
@@ -52,16 +53,14 @@
 
         <div id="pageHasil" style="display: none;">
             <label id="identitas"></label>
-            <table>
-                <tr>
-                    <td>
-                        <label id="jumlahSalah"></label>
-                    </td>
-                    <td>
-                        <label id="nilaiAkhir"></label>
-                    </td>
-                </tr>
-            </table>        
+            <div class="row">
+                <div class="column" style="background-color:#aaa;">
+                    <label id="jumlahSalah"></label>
+                </div>
+                <div class="column" style="background-color:#bbb;">
+                    <label id="nilaiAkhir"></label>
+                </div>
+            </div>       
             <button id="remidi" onclick="remidi();" class="btn3">Remidi</button>
             <button id="kirim" onclick="kirim();" class="btn3">Kirim</button>
             
